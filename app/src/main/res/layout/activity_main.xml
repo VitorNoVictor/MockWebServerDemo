@@ -10,77 +10,66 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.vitornovictor.mockwebserverdemo.MainActivity"
     >
-
-  <!-- Login progress -->
   <ProgressBar
       android:id="@+id/login_progress"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
       android:visibility="gone"
       style="?android:attr/progressBarStyleLarge"
       />
 
-  <ScrollView
-      android:id="@+id/login_form"
+  <LinearLayout
+      android:id="@+id/search_user_form"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
       >
-
-    <LinearLayout
-        android:id="@+id/email_login_form"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         >
-
-      <android.support.design.widget.TextInputLayout
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/username"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          >
-
-        <AutoCompleteTextView
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-      </android.support.design.widget.TextInputLayout>
-
-      <android.support.design.widget.TextInputLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          >
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            android:imeActionId="@+id/login"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-      </android.support.design.widget.TextInputLayout>
-
-      <Button
-          android:id="@+id/email_sign_in_button"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:text="@string/action_sign_in"
-          android:textStyle="bold"
-          style="?android:textAppearanceSmall"
+          android:hint="@string/prompt_username"
+          android:inputType="text"
+          android:maxLines="1"
           />
+    </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-  </ScrollView>
+    <Button
+        android:id="@+id/search_user_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_vertical_margin"
+        android:text="@string/action_search_user"
+        android:textStyle="bold"
+        style="?android:textAppearanceSmall"
+        />
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/result_form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      >
+    <TextView
+        android:id="@+id/result_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:textAppearanceMedium"
+        />
+    <Button
+        android:id="@+id/clear_result_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_vertical_margin"
+        android:text="@string/action_clear_search"
+        android:textStyle="bold"
+        style="?android:textAppearanceSmall"
+        />
+  </LinearLayout>
 </LinearLayout>
