@@ -11,7 +11,7 @@
     tools:context="com.vitornovictor.mockwebserverdemo.MainActivity"
     >
   <ProgressBar
-      android:id="@+id/login_progress"
+      android:id="@+id/progress"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:visibility="gone"
@@ -19,7 +19,7 @@
       />
 
   <LinearLayout
-      android:id="@+id/search_user_form"
+      android:id="@+id/search_user_panel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
@@ -50,14 +50,14 @@
   </LinearLayout>
 
   <LinearLayout
-      android:id="@+id/result_form"
+      android:id="@+id/result_panel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:visibility="gone"
       >
     <TextView
-        android:id="@+id/result_label"
+        android:id="@+id/result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:textAppearanceMedium"

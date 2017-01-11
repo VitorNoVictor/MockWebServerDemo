@@ -2,6 +2,6 @@
   <string name="app_name">MWS Demo</string>
   <string name="prompt_username">GitHub User</string>
   <string name="action_search_user">Search GitHub user</string>
-  <string name="action_clear_search">Clear result</string>
+  <string name="action_clear_search">Clear search</string>
   <string name="error_message">Ops... something went wrong :(</string>
 </resources>

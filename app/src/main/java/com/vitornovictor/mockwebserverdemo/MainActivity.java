@@ -11,19 +11,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-  private View mSearchUserFormView;
-  private View mResultFormView;
-  private EditText mUsernameView;
-  private View mProgressView;
-  private TextView mResultTextView;
+  private View searchUserPanel;
+  private View resultPanel;
+  private EditText username;
+  private View progress;
+  private TextView result;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    mSearchUserFormView = findViewById(R.id.search_user_form);
-    mUsernameView = (EditText) findViewById(R.id.username);
+    searchUserPanel = findViewById(R.id.search_user_panel);
+    username = (EditText) findViewById(R.id.username);
     View searchUserButton = findViewById(R.id.search_user_button);
     searchUserButton.setOnClickListener(new OnClickListener() {
       @Override
@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    mProgressView = findViewById(R.id.login_progress);
+    progress = findViewById(R.id.progress);
 
-    mResultFormView = findViewById(R.id.result_form);
-    mResultTextView = (TextView) findViewById(R.id.result_label);
+    resultPanel = findViewById(R.id.result_panel);
+    result = (TextView) findViewById(R.id.result);
     View clearSearchButton = findViewById(R.id.clear_result_button);
     clearSearchButton.setOnClickListener(new OnClickListener() {
       @Override
@@ -46,44 +46,48 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void searchGitHubUser() {
-    //TODO
+    String username = this.username.getText().toString();
+    setSearchResult(username);
+    showResultForm(true);
+    showSearchForm(false);
   }
 
   private void clearResult() {
+    username.setText(null);
     showResultForm(false);
     showSearchForm(true);
   }
 
   private void showResultForm(boolean show) {
-    mResultFormView.setVisibility(show ? View.VISIBLE : View.GONE);
+    resultPanel.setVisibility(show ? View.VISIBLE : View.GONE);
   }
 
   private void showSearchForm(boolean show) {
-    mSearchUserFormView.setVisibility(show ? View.VISIBLE : View.GONE);
+    searchUserPanel.setVisibility(show ? View.VISIBLE : View.GONE);
   }
 
   private void showProgress(final boolean show) {
     int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-    mSearchUserFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-    mSearchUserFormView.animate()
-                       .setDuration(shortAnimTime)
-                       .alpha(show ? 0 : 1)
-                       .setListener(new AnimatorListenerAdapter() {
+    searchUserPanel.setVisibility(show ? View.GONE : View.VISIBLE);
+    searchUserPanel.animate()
+                   .setDuration(shortAnimTime)
+                   .alpha(show ? 0 : 1)
+                   .setListener(new AnimatorListenerAdapter() {
                          @Override
                          public void onAnimationEnd(Animator animation) {
-                           mSearchUserFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                           searchUserPanel.setVisibility(show ? View.GONE : View.VISIBLE);
                          }
                        });
 
-    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-    mProgressView.animate()
-                 .setDuration(shortAnimTime)
-                 .alpha(show ? 1 : 0)
-                 .setListener(new AnimatorListenerAdapter() {
+    progress.setVisibility(show ? View.VISIBLE : View.GONE);
+    progress.animate()
+            .setDuration(shortAnimTime)
+            .alpha(show ? 1 : 0)
+            .setListener(new AnimatorListenerAdapter() {
                    @Override
                    public void onAnimationEnd(Animator animation) {
-                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                     progress.setVisibility(show ? View.VISIBLE : View.GONE);
                    }
                  });
   }
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setSearchResult(String result) {
-    mResultTextView.setText(result);
+    this.result.setText(result);
   }
 }
 
