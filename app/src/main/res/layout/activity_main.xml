@@ -10,13 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.vitornovictor.mockwebserverdemo.MainActivity"
     >
-  <ProgressBar
-      android:id="@+id/progress"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      style="?android:attr/progressBarStyleLarge"
-      />
 
   <LinearLayout
       android:id="@+id/search_user_panel"
@@ -45,6 +38,7 @@
         android:layout_marginTop="@dimen/button_vertical_margin"
         android:text="@string/action_search_user"
         android:textStyle="bold"
+        android:filterTouchesWhenObscured="true"
         style="?android:textAppearanceSmall"
         />
   </LinearLayout>
@@ -69,6 +63,7 @@
         android:layout_marginTop="@dimen/button_vertical_margin"
         android:text="@string/action_clear_search"
         android:textStyle="bold"
+        android:filterTouchesWhenObscured="true"
         style="?android:textAppearanceSmall"
         />
   </LinearLayout>

@@ -1,7 +1,5 @@
 package com.vitornovictor.mockwebserverdemo;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +12,6 @@ public class MainActivity extends AppCompatActivity {
   private View searchUserPanel;
   private View resultPanel;
   private EditText username;
-  private View progress;
   private TextView result;
 
   @Override
@@ -31,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         searchGitHubUser();
       }
     });
-
-    progress = findViewById(R.id.progress);
 
     resultPanel = findViewById(R.id.result_panel);
     result = (TextView) findViewById(R.id.result);
@@ -65,32 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
   private void showSearchForm(boolean show) {
     searchUserPanel.setVisibility(show ? View.VISIBLE : View.GONE);
-  }
-
-  private void showProgress(final boolean show) {
-    int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-    searchUserPanel.setVisibility(show ? View.GONE : View.VISIBLE);
-    searchUserPanel.animate()
-                   .setDuration(shortAnimTime)
-                   .alpha(show ? 0 : 1)
-                   .setListener(new AnimatorListenerAdapter() {
-                         @Override
-                         public void onAnimationEnd(Animator animation) {
-                           searchUserPanel.setVisibility(show ? View.GONE : View.VISIBLE);
-                         }
-                       });
-
-    progress.setVisibility(show ? View.VISIBLE : View.GONE);
-    progress.animate()
-            .setDuration(shortAnimTime)
-            .alpha(show ? 1 : 0)
-            .setListener(new AnimatorListenerAdapter() {
-                   @Override
-                   public void onAnimationEnd(Animator animation) {
-                     progress.setVisibility(show ? View.VISIBLE : View.GONE);
-                   }
-                 });
   }
 
   private void showError() {

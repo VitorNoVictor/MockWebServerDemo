@@ -1,7 +1,8 @@
 <resources>
-  <string name="app_name">MWS Demo</string>
+  <string name="app_name">GitHub ID Finder</string>
   <string name="prompt_username">GitHub User</string>
   <string name="action_search_user">Search GitHub user</string>
   <string name="action_clear_search">Clear search</string>
-  <string name="error_message">Ops... something went wrong :(</string>
+  <string name="error_message">Ops&#8230; something went wrong :(</string>
+  <string name="user_not_found">User not found :(</string>
 </resources>
