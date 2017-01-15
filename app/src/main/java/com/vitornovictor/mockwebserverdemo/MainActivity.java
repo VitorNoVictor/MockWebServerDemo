@@ -7,12 +7,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
   private View searchUserPanel;
   private View resultPanel;
   private EditText username;
   private TextView result;
+  private GitHubApi gitHubApi;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,28 +42,41 @@ public class MainActivity extends AppCompatActivity {
         clearResult();
       }
     });
+
+    gitHubApi = ((GitHubIdFinderApplication) getApplication()).getGitHubApi();
   }
 
   private void searchGitHubUser() {
     String username = this.username.getText().toString();
-    GitHubUser testUser = new GitHubUser(username, "1234");
-    setSearchResult(testUser.toString());
-    showResultForm(true);
-    showSearchForm(false);
+    gitHubApi.getUser(username).enqueue(new Callback<GitHubUser>() {
+      @Override
+      public void onResponse(
+          Call<GitHubUser> call, Response<GitHubUser> response) {
+        if (response.isSuccessful()) {
+          GitHubUser user = response.body();
+          setSearchResult(user.toString());
+        } else {
+          setSearchResult(getString(R.string.user_not_found));
+        }
+
+        showResultForm(true);
+      }
+
+      @Override
+      public void onFailure(Call<GitHubUser> call, Throwable t) {
+        showError();
+      }
+    });
   }
 
   private void clearResult() {
     username.setText(null);
     showResultForm(false);
-    showSearchForm(true);
   }
 
   private void showResultForm(boolean show) {
     resultPanel.setVisibility(show ? View.VISIBLE : View.GONE);
-  }
-
-  private void showSearchForm(boolean show) {
-    searchUserPanel.setVisibility(show ? View.VISIBLE : View.GONE);
+    searchUserPanel.setVisibility(show ? View.GONE : View.VISIBLE);
   }
 
   private void showError() {
