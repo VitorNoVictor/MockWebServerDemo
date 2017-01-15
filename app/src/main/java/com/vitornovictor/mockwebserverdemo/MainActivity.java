@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
   private void searchGitHubUser() {
     String username = this.username.getText().toString();
-    setSearchResult(username);
+    GitHubUser testUser = new GitHubUser(username, "1234");
+    setSearchResult(testUser.toString());
     showResultForm(true);
     showSearchForm(false);
   }
