@@ -1,5 +1,6 @@
 package com.vitornovictor.mockwebserverdemo;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import org.junit.Rule;
@@ -72,7 +73,7 @@ public class GitHubIdFinderTest {
   }
 
   private void verifyResultLabel(int stringRes) {
-    String expectedLabel = testRule.getActivity().getString(stringRes);
+    String expectedLabel = InstrumentationRegistry.getTargetContext().getString(stringRes);
     verifyResultLabel(expectedLabel);
   }
 
