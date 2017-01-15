@@ -53,11 +53,13 @@ public class GitHubIdFinderTest {
     verifyDefaultErrorMessage();
   }
 
+  @Test
   public void showsErrorMessageOnServerError() {
     searchUser(USER_FOR_SERVER_ERROR);
     verifyDefaultErrorMessage();
   }
 
+  @Test
   public void showsErrorMessageOnInvalidResponse() {
     searchUser(USER_FOR_INVALID_RESPONSE);
 
