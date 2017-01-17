@@ -31,9 +31,19 @@ dependencies {
   compile 'com.google.code.gson:gson:2.8.0'
   compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-  // Instrumentation tests
+  // Instrumentation Tests
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
+  })
+
+  androidTestCompile('com.jakewharton.espresso:okhttp3-idling-resource:1.0.0', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+    exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+  })
+
+  androidTestCompile('com.squareup.okhttp3:mockwebserver:3.5.0', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+    exclude group: 'com.squareup.okhttp3', module: 'okhttp'
   })
 
   // Unit tests

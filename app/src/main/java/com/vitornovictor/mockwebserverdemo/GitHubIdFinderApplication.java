@@ -12,6 +12,7 @@ public class GitHubIdFinderApplication extends Application {
     if (gitHubApi == null) {
       gitHubApi = new Retrofit.Builder().baseUrl(BASE_URL)
                                         .addConverterFactory(GsonConverterFactory.create())
+                                        .client(OkHttpClientProvider.getInstance())
                                         .build()
                                         .create(GitHubApi.class);
     }

@@ -31,6 +31,9 @@ public class GitHubIdFinderTest {
   @Rule
   public ActivityTestRule<MainActivity> testRule = new ActivityTestRule<>(MainActivity.class);
 
+  @Rule
+  public OkHttpIdlingResourceRule okHttpIdlingResourceRule = new OkHttpIdlingResourceRule();
+
   @Test
   public void showsIdForExistentUser() {
     searchUser(EXISTENT_USER);
