@@ -1,4 +1,4 @@
-package com.vitornovictor.mockwebserverdemo;
+package com.vitornovictor.mockwebserverdemo.api;
 
 import okhttp3.OkHttpClient;
 

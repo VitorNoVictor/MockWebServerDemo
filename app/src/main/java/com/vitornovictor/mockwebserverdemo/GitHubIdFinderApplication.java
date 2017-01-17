@@ -1,8 +1,8 @@
 package com.vitornovictor.mockwebserverdemo;
 
 import android.app.Application;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.vitornovictor.mockwebserverdemo.api.GitHubApi;
+import com.vitornovictor.mockwebserverdemo.api.GitHubApiProvider;
 
 public class GitHubIdFinderApplication extends Application {
   private static final String BASE_URL = "https://api.github.com";
@@ -10,11 +10,7 @@ public class GitHubIdFinderApplication extends Application {
 
   public GitHubApi getGitHubApi() {
     if (gitHubApi == null) {
-      gitHubApi = new Retrofit.Builder().baseUrl(BASE_URL)
-                                        .addConverterFactory(GsonConverterFactory.create())
-                                        .client(OkHttpClientProvider.getInstance())
-                                        .build()
-                                        .create(GitHubApi.class);
+      gitHubApi = GitHubApiProvider.getInstance(BASE_URL);
     }
 
     return gitHubApi;

@@ -1,10 +1,10 @@
-package com.vitornovictor.mockwebserverdemo;
+package com.vitornovictor.mockwebserverdemo.api;
 
-class GitHubUser {
+public class GitHubUser {
   private String login;
   private String id;
 
-  GitHubUser(String login, String id) {
+  public GitHubUser(String login, String id) {
     this.login = login;
     this.id = id;
   }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.vitornovictor.mockwebserverdemo.api.GitHubApi;
+import com.vitornovictor.mockwebserverdemo.api.GitHubUser;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
