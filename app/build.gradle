@@ -9,7 +9,7 @@ android {
     targetSdkVersion 25
     versionCode 1
     versionName "1.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "com.vitornovictor.mockwebserverdemo.TestRunner"
   }
   buildTypes {
     release {
@@ -26,6 +26,7 @@ dependencies {
 
   // HTTP Client
   compile 'com.squareup.retrofit2:retrofit:2.1.0'
+  compile 'com.squareup.okhttp3:okhttp:3.5.0'
 
   // JSON Parsing
   compile 'com.google.code.gson:gson:2.8.0'
