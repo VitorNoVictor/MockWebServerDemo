@@ -3,26 +3,24 @@ package com.vitornovictor.mockwebserverdemo;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.vitornovictor.mockwebserverdemo.environment.TestApplication;
+import com.vitornovictor.mockwebserverdemo.rules.MockWebServerRule;
+import com.vitornovictor.mockwebserverdemo.rules.OkHttpIdlingResourceRule;
+import com.vitornovictor.mockwebserverdemo.util.MockedResponses;
 import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.vitornovictor.mockwebserverdemo.util.MainActivityActions.searchUser;
+import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications.verifyDefaultErrorMessage;
+import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications.verifyResultLabel;
 
 @RunWith(AndroidJUnit4.class)
 public class GitHubIdFinderTest {
-  private static final String RESULT_FORMAT = "%s:%s";
-
   private static final String NONEXISTENT_USER = "nonexistentUser";
 
   private static final String USER_FOR_TIMEOUT = "timeoutUser";
@@ -36,26 +34,27 @@ public class GitHubIdFinderTest {
   @Rule
   public OkHttpIdlingResourceRule okHttpIdlingResourceRule = new OkHttpIdlingResourceRule();
 
+  @Rule
+  public MockWebServerRule mockWebServerRule = new MockWebServerRule();
+
+  @Before
+  public void setBaseUrl() {
+    TestApplication app =
+        (TestApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+
+    app.setBaseUrl(mockWebServerRule.server.url("/").toString());
+  }
+
   @Test
   public void showsIdForExistentUser() throws IOException {
-    MockWebServer server = new MockWebServer();
-    server.start();
-
-    TestApplication app = (TestApplication)
-        InstrumentationRegistry.getTargetContext().getApplicationContext();
-    app.setBaseUrl(server.url("/").toString());
-
-    server.enqueue(new MockResponse().setBody(TestResponse.ValidUser.RESPONSE));
+    mockWebServerRule.server.enqueue(new MockResponse().setBody(MockedResponses.ValidUserResponse.JSON_RESPONSE));
 
     activityTestRule.launchActivity(null);
 
-    searchUser(TestResponse.ValidUser.USERNAME);
+    searchUser(MockedResponses.ValidUserResponse.USERNAME);
 
-    String expectedResultLabel =
-        buildResultFor(TestResponse.ValidUser.USERNAME, TestResponse.ValidUser.ID);
-
-    verifyResultLabel(expectedResultLabel);
-    server.shutdown();
+    verifyResultLabel(MockedResponses.ValidUserResponse.USERNAME,
+                      MockedResponses.ValidUserResponse.ID);
   }
 
   @Ignore
@@ -87,27 +86,5 @@ public class GitHubIdFinderTest {
     searchUser(USER_FOR_INVALID_RESPONSE);
 
     verifyDefaultErrorMessage();
-  }
-
-  private static void searchUser(String user) {
-    onView(withId(R.id.username)).perform(typeText(user));
-    onView(withId(R.id.search_user_button)).perform(click());
-  }
-
-  private void verifyResultLabel(int stringRes) {
-    String expectedLabel = InstrumentationRegistry.getTargetContext().getString(stringRes);
-    verifyResultLabel(expectedLabel);
-  }
-
-  private void verifyResultLabel(String resultLabel) {
-    onView(withId(R.id.result)).check(matches(withText(resultLabel)));
-  }
-
-  private void verifyDefaultErrorMessage() {
-    onView(withId(android.support.design.R.id.snackbar_text)).check(matches(isDisplayed()));
-  }
-
-  private static String buildResultFor(String user, String id) {
-    return String.format(RESULT_FORMAT, user, id);
   }
 }

@@ -1,4 +1,4 @@
-package com.vitornovictor.mockwebserverdemo;
+package com.vitornovictor.mockwebserverdemo.environment;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,5 +1,6 @@
-package com.vitornovictor.mockwebserverdemo;
+package com.vitornovictor.mockwebserverdemo.environment;
 
+import com.vitornovictor.mockwebserverdemo.GitHubIdFinderApplication;
 import com.vitornovictor.mockwebserverdemo.api.GitHubApi;
 import com.vitornovictor.mockwebserverdemo.api.GitHubApiProvider;
 
