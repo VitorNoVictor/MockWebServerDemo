@@ -1,6 +1,6 @@
 package com.vitornovictor.mockwebserverdemo.util;
 
-public final class MockedResponses {
+public final class ServerResponse {
   private static final String TEMPLATE = "{\n"
       + "  \"login\": \"%s\",\n"
       + "  \"id\": \"%s\",\n"
@@ -34,9 +34,10 @@ public final class MockedResponses {
       + "  \"updated_at\": \"2017-01-15T19:08:30Z\"\n"
       + "}";
 
-  public static class ValidUserResponse {
-    public static String USERNAME = "validUser";
-    public static String ID = "valid1234";
-    public static String JSON_RESPONSE = String.format(TEMPLATE, USERNAME, ID);
+  private ServerResponse() {
+  }
+
+  public static String buildFor(String user, String id) {
+    return String.format(TEMPLATE, user, id);
   }
 }

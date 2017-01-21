@@ -6,7 +6,9 @@ import android.support.test.runner.AndroidJUnit4;
 import com.vitornovictor.mockwebserverdemo.environment.TestApplication;
 import com.vitornovictor.mockwebserverdemo.rules.MockWebServerRule;
 import com.vitornovictor.mockwebserverdemo.rules.OkHttpIdlingResourceRule;
-import com.vitornovictor.mockwebserverdemo.util.MockedResponses;
+import com.vitornovictor.mockwebserverdemo.util.ResponseDispatcher;
+import com.vitornovictor.mockwebserverdemo.util.ServerResponse;
+import com.vitornovictor.mockwebserverdemo.util.Parameters;
 import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Before;
@@ -47,20 +49,23 @@ public class GitHubIdFinderTest {
 
   @Test
   public void showsIdForExistentUser() throws IOException {
-    mockWebServerRule.server.enqueue(
-        new MockResponse().setBody(MockedResponses.ValidUserResponse.JSON_RESPONSE));
+    MockResponse mockResponse =
+        new MockResponse().setBody(ServerResponse.buildFor(Parameters.VALID_USER,
+                                                           Parameters.VALID_USER_ID));
+    mockWebServerRule.server.enqueue(mockResponse);
 
     activityTestRule.launchActivity(null);
 
-    searchUser(MockedResponses.ValidUserResponse.USERNAME);
+    searchUser(Parameters.VALID_USER);
 
-    verifyResultLabel(MockedResponses.ValidUserResponse.USERNAME,
-                      MockedResponses.ValidUserResponse.ID);
+    verifyResultLabel(Parameters.VALID_USER, Parameters.VALID_USER_ID);
   }
 
-  @Ignore
   @Test
   public void showsMessageFoNonexistentUser() {
+    mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
+    activityTestRule.launchActivity(null);
+
     searchUser(NONEXISTENT_USER);
 
     verifyResultLabel(R.string.user_not_found);
