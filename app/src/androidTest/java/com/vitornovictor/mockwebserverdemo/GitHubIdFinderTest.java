@@ -47,7 +47,8 @@ public class GitHubIdFinderTest {
 
   @Test
   public void showsIdForExistentUser() throws IOException {
-    mockWebServerRule.server.enqueue(new MockResponse().setBody(MockedResponses.ValidUserResponse.JSON_RESPONSE));
+    mockWebServerRule.server.enqueue(
+        new MockResponse().setBody(MockedResponses.ValidUserResponse.JSON_RESPONSE));
 
     activityTestRule.launchActivity(null);
 

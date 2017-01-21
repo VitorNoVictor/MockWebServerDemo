@@ -9,6 +9,7 @@ public class TestRunner extends AndroidJUnitRunner {
   public Application newApplication(
       ClassLoader cl, String className, Context context)
       throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+
     return super.newApplication(cl, TestApplication.class.getName(), context);
   }
 }
