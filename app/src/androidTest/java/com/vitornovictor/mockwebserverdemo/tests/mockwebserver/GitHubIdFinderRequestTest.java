@@ -1,9 +1,10 @@
-package com.vitornovictor.mockwebserverdemo;
+package com.vitornovictor.mockwebserverdemo.tests.mockwebserver;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.vitornovictor.mockwebserverdemo.MainActivity;
 import com.vitornovictor.mockwebserverdemo.environment.TestApplication;
 import com.vitornovictor.mockwebserverdemo.rules.MockWebServerRule;
 import com.vitornovictor.mockwebserverdemo.rules.OkHttpIdlingResourceRule;

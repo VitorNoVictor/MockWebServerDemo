@@ -9,7 +9,9 @@ android {
     targetSdkVersion 25
     versionCode 1
     versionName "1.0"
+
     testInstrumentationRunner "com.vitornovictor.mockwebserverdemo.environment.TestRunner"
+    //testInstrumentationRunner "com.vitornovictor.mockwebserverdemo.environment.TestRunnerUsingRestMock"
   }
   buildTypes {
     release {
@@ -46,6 +48,8 @@ dependencies {
     exclude group: 'com.android.support', module: 'support-annotations'
     exclude group: 'com.squareup.okhttp3', module: 'okhttp'
   })
+
+  androidTestCompile 'com.github.andrzejchm.RESTMock:android:0.1.4'
 
   // Unit tests
   testCompile 'junit:junit:4.12'

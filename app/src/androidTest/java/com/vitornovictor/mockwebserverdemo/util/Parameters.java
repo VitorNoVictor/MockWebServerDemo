@@ -4,7 +4,7 @@ public final class Parameters {
   private Parameters() {
   }
 
-  static final int RESPONSE_CODE_USER_NOT_FOUND = 404;
+  public static final int RESPONSE_CODE_USER_NOT_FOUND = 404;
 
   static final long DELAY_PERIOD = 2;
   static final long BYTES_PER_PERIOD = 1;

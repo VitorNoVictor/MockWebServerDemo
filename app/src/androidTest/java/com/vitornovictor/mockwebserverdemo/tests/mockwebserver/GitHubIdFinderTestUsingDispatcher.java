@@ -1,12 +1,15 @@
-package com.vitornovictor.mockwebserverdemo;
+package com.vitornovictor.mockwebserverdemo.tests.mockwebserver;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.vitornovictor.mockwebserverdemo.MainActivity;
+import com.vitornovictor.mockwebserverdemo.R;
 import com.vitornovictor.mockwebserverdemo.environment.TestApplication;
 import com.vitornovictor.mockwebserverdemo.rules.MockWebServerRule;
 import com.vitornovictor.mockwebserverdemo.rules.OkHttpIdlingResourceRule;
+import com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications;
 import com.vitornovictor.mockwebserverdemo.util.Parameters;
 import com.vitornovictor.mockwebserverdemo.util.ResponseDispatcher;
 import org.junit.Before;
@@ -16,7 +19,6 @@ import org.junit.runner.RunWith;
 
 import static com.vitornovictor.mockwebserverdemo.util.MainActivityActions.searchUser;
 import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications.verifyDefaultErrorMessage;
-import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications.verifyResultLabel;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -46,7 +48,7 @@ public class GitHubIdFinderTestUsingDispatcher {
   public void showsMessageFoNonexistentUser() {
     searchUser(Parameters.NONEXISTENT_USER);
 
-    verifyResultLabel(R.string.user_not_found);
+    MainActivityVerifications.verifyResultLabel(R.string.user_not_found);
   }
 
   @Test
