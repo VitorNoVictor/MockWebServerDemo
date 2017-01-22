@@ -1,7 +1,7 @@
 package com.vitornovictor.mockwebserverdemo.util;
 
 public final class ServerResponse {
-  private static final String TEMPLATE = "{\n"
+  private static final String VALID_RESPONSE_TEMPLATE = "{\n"
       + "  \"login\": \"%s\",\n"
       + "  \"id\": \"%s\",\n"
       + "  \"avatar_url\": null,\n"
@@ -34,10 +34,24 @@ public final class ServerResponse {
       + "  \"updated_at\": \"2017-01-15T19:08:30Z\"\n"
       + "}";
 
+  private static final String MALFORMED_RESPONSE = ""
+      + "<!DOCTYPE html>\n"
+      + "<html>\n"
+      + "<body>\n"
+      + "\n"
+      + "<h1>Invalid Response</h1>\n"
+      + "\n"
+      + "</body>\n"
+      + "</html>";
+
   private ServerResponse() {
   }
 
   public static String buildFor(String user, String id) {
-    return String.format(TEMPLATE, user, id);
+    return String.format(VALID_RESPONSE_TEMPLATE, user, id);
+  }
+
+  static String getMalformedResponse() {
+    return MALFORMED_RESPONSE;
   }
 }

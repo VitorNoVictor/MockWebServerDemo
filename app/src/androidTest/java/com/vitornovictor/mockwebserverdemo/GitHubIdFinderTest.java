@@ -12,7 +12,6 @@ import com.vitornovictor.mockwebserverdemo.util.Parameters;
 import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,12 +22,6 @@ import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications
 
 @RunWith(AndroidJUnit4.class)
 public class GitHubIdFinderTest {
-  private static final String NONEXISTENT_USER = "nonexistentUser";
-
-  private static final String USER_FOR_TIMEOUT = "timeoutUser";
-  private static final String USER_FOR_SERVER_ERROR = "serverErrorUser";
-  private static final String USER_FOR_INVALID_RESPONSE = "invalidResponseUser";
-
   @Rule
   public ActivityTestRule<MainActivity> activityTestRule =
       new ActivityTestRule<>(MainActivity.class, true, false);
@@ -66,30 +59,27 @@ public class GitHubIdFinderTest {
     mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
     activityTestRule.launchActivity(null);
 
-    searchUser(NONEXISTENT_USER);
+    searchUser(Parameters.NONEXISTENT_USER);
 
     verifyResultLabel(R.string.user_not_found);
   }
 
-  @Ignore
   @Test
   public void showsErrorMessageOnTimeout() {
-    searchUser(USER_FOR_TIMEOUT);
+    mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
+    activityTestRule.launchActivity(null);
+
+    searchUser(Parameters.TIMEOUT_USER);
 
     verifyDefaultErrorMessage();
   }
 
-  @Ignore
-  @Test
-  public void showsErrorMessageOnServerError() {
-    searchUser(USER_FOR_SERVER_ERROR);
-    verifyDefaultErrorMessage();
-  }
-
-  @Ignore
   @Test
   public void showsErrorMessageOnInvalidResponse() {
-    searchUser(USER_FOR_INVALID_RESPONSE);
+    mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
+    activityTestRule.launchActivity(null);
+
+    searchUser(Parameters.MALFORMED_USER);
 
     verifyDefaultErrorMessage();
   }
