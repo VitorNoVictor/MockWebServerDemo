@@ -12,8 +12,8 @@ public class ResponseDispatcher extends Dispatcher {
     String[] parts = path.split("/");
     String username = parts[parts.length - 1];
 
-    if (username.equalsIgnoreCase(Parameters.VALID_USER)) {
-      return buildForBody(ServerResponse.buildFor(Parameters.VALID_USER, Parameters.VALID_USER_ID));
+    if (username.equalsIgnoreCase(Parameters.VALID_USER_1)) {
+      return buildForBody(ServerResponse.buildFor(Parameters.VALID_USER_1, Parameters.VALID_USER_1_ID));
     }
 
     if (username.equalsIgnoreCase(Parameters.NONEXISTENT_USER)) {

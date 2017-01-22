@@ -12,4 +12,8 @@ public class MainActivityActions {
     onView(withId(R.id.username)).perform(typeText(user));
     onView(withId(R.id.search_user_button)).perform(click());
   }
+
+  public static void goBackToSearchForm() {
+    onView(withId(R.id.clear_result_button)).perform(click());
+  }
 }

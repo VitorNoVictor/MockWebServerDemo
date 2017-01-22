@@ -9,8 +9,11 @@ public final class Parameters {
   static final long DELAY_PERIOD = 2;
   static final long BYTES_PER_PERIOD = 1;
 
-  public static final String VALID_USER = "validUser";
-  public static final String VALID_USER_ID = "12345";
+  public static final String VALID_USER_1 = "validUser1";
+  public static final String VALID_USER_1_ID = "12345";
+
+  public static final String VALID_USER_2 = "validUser2";
+  public static final String VALID_USER_2_ID = "23456";
 
   public static final String NONEXISTENT_USER = "nonexistentUser";
 

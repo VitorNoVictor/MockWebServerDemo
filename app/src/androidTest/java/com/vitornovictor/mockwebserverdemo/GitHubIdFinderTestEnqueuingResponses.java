@@ -1,14 +1,14 @@
 package com.vitornovictor.mockwebserverdemo;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.vitornovictor.mockwebserverdemo.environment.TestApplication;
 import com.vitornovictor.mockwebserverdemo.rules.MockWebServerRule;
 import com.vitornovictor.mockwebserverdemo.rules.OkHttpIdlingResourceRule;
-import com.vitornovictor.mockwebserverdemo.util.ResponseDispatcher;
-import com.vitornovictor.mockwebserverdemo.util.ServerResponse;
 import com.vitornovictor.mockwebserverdemo.util.Parameters;
+import com.vitornovictor.mockwebserverdemo.util.ServerResponse;
 import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import org.junit.Before;
@@ -16,12 +16,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.vitornovictor.mockwebserverdemo.util.MainActivityActions.goBackToSearchForm;
 import static com.vitornovictor.mockwebserverdemo.util.MainActivityActions.searchUser;
-import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications.verifyDefaultErrorMessage;
 import static com.vitornovictor.mockwebserverdemo.util.MainActivityVerifications.verifyResultLabel;
 
+@LargeTest
 @RunWith(AndroidJUnit4.class)
-public class GitHubIdFinderTest {
+public class GitHubIdFinderTestEnqueuingResponses {
   @Rule
   public ActivityTestRule<MainActivity> activityTestRule =
       new ActivityTestRule<>(MainActivity.class, true, false);
@@ -43,44 +44,37 @@ public class GitHubIdFinderTest {
   @Test
   public void showsIdForExistentUser() throws IOException {
     MockResponse mockResponse =
-        new MockResponse().setBody(ServerResponse.buildFor(Parameters.VALID_USER,
-                                                           Parameters.VALID_USER_ID));
+        new MockResponse().setBody(ServerResponse.buildFor(Parameters.VALID_USER_1,
+                                                           Parameters.VALID_USER_1_ID));
     mockWebServerRule.server.enqueue(mockResponse);
 
     activityTestRule.launchActivity(null);
 
-    searchUser(Parameters.VALID_USER);
+    searchUser(Parameters.VALID_USER_1);
 
-    verifyResultLabel(Parameters.VALID_USER, Parameters.VALID_USER_ID);
+    verifyResultLabel(Parameters.VALID_USER_1, Parameters.VALID_USER_1_ID);
   }
 
   @Test
-  public void showsMessageFoNonexistentUser() {
-    mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
+  public void performsTwoSearchesAndShowsCorrectIdsBothTimes() throws IOException {
+    MockResponse firstUserResponse =
+        new MockResponse().setBody(ServerResponse.buildFor(Parameters.VALID_USER_1,
+                                                           Parameters.VALID_USER_1_ID));
+    mockWebServerRule.server.enqueue(firstUserResponse);
+
+    MockResponse secondUserResponse =
+        new MockResponse().setBody(ServerResponse.buildFor(Parameters.VALID_USER_2,
+                                                           Parameters.VALID_USER_2_ID));
+    mockWebServerRule.server.enqueue(secondUserResponse);
+
     activityTestRule.launchActivity(null);
 
-    searchUser(Parameters.NONEXISTENT_USER);
+    searchUser(Parameters.VALID_USER_1);
+    verifyResultLabel(Parameters.VALID_USER_1, Parameters.VALID_USER_1_ID);
 
-    verifyResultLabel(R.string.user_not_found);
-  }
+    goBackToSearchForm();
 
-  @Test
-  public void showsErrorMessageOnTimeout() {
-    mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
-    activityTestRule.launchActivity(null);
-
-    searchUser(Parameters.TIMEOUT_USER);
-
-    verifyDefaultErrorMessage();
-  }
-
-  @Test
-  public void showsErrorMessageOnInvalidResponse() {
-    mockWebServerRule.server.setDispatcher(new ResponseDispatcher());
-    activityTestRule.launchActivity(null);
-
-    searchUser(Parameters.MALFORMED_USER);
-
-    verifyDefaultErrorMessage();
+    searchUser(Parameters.VALID_USER_2);
+    verifyResultLabel(Parameters.VALID_USER_2, Parameters.VALID_USER_2_ID);
   }
 }
