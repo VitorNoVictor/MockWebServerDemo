@@ -8,9 +8,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 public class ResponseDispatcher extends Dispatcher {
   @Override
   public MockResponse dispatch(RecordedRequest recordedRequest) throws InterruptedException {
-    String path = recordedRequest.getPath();
-    String[] parts = path.split("/");
-    String username = parts[parts.length - 1];
+    String username = getUsernameFromRequest(recordedRequest);
 
     if (username.equalsIgnoreCase(Parameters.VALID_USER_1)) {
       return buildResponseForBody(ServerResponse.buildFor(Parameters.VALID_USER_1,
@@ -35,6 +33,12 @@ public class ResponseDispatcher extends Dispatcher {
     }
 
     return null;
+  }
+
+  private String getUsernameFromRequest(RecordedRequest recordedRequest) {
+    String path = recordedRequest.getPath();
+    String[] parts = path.split("/");
+    return parts[parts.length - 1];
   }
 
   private MockResponse buildResponseForBody(String body) {
