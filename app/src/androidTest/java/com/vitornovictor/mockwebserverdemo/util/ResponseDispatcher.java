@@ -13,7 +13,8 @@ public class ResponseDispatcher extends Dispatcher {
     String username = parts[parts.length - 1];
 
     if (username.equalsIgnoreCase(Parameters.VALID_USER_1)) {
-      return buildForBody(ServerResponse.buildFor(Parameters.VALID_USER_1, Parameters.VALID_USER_1_ID));
+      return buildForBody(ServerResponse.buildFor(Parameters.VALID_USER_1,
+                                                  Parameters.VALID_USER_1_ID));
     }
 
     if (username.equalsIgnoreCase(Parameters.NONEXISTENT_USER)) {
